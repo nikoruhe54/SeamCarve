@@ -70,13 +70,17 @@ void buildPixelMatrix(int** &pixelMatrix, string pixels, int xLen, int yLen) {
 	int xCount = 0, yCount = 0;
 	for (int i = 0; i < pixels.length(); i++) {
 		if (xCount < xLen) {
-			pixelMatrix[xCount][yCount] = pixels[i];
-			xCount++;
+			if (pixels[i] != ' ' && pixels[i] != '\n' && pixels[i] != '\t') {
+				pixelMatrix[xCount][yCount] = pixels[i];
+				xCount++;
+			}
 		}
 		else {
-			yCount++;
-			xCount = 0;
-			pixelMatrix[xCount][yCount] = pixels[i];
+			if (pixels[i] != ' ' && pixels[i] != '\n' && pixels[i] != '\t') {
+				yCount++;
+				xCount = 0;
+				pixelMatrix[xCount][yCount] = pixels[i];
+			}
 		}
 	}
 }
@@ -89,7 +93,13 @@ int main() {
 		pixelMatrix[j] = new int[xLen];
 	}
 	buildPixelMatrix(pixelMatrix, pixels, xLen, yLen);
-	cout << "made it to end" << endl;
+
+	for (int i = 0; i < xLen; i++) {
+		for (int x = 0; i < yLen; y++) {
+			cout << pixelMatrix[i][x] << " ";
+		}
+		cout << endl;
+	}
 	return 0;
 }
 

@@ -11,12 +11,16 @@ string uploadData(string FileName) {
 	bool p2Check = false, dimensionCheck = false, maxCheck = false, comment = false;
 	ifstream inFile(FileName);
 	while (inFile.get(letter)) {
+		cout << "got to main inFileLoop" << endl;
 		comment = false;
 		if (letter == '\n') {
+			cout << "found a newline" << endl;
+			cout << word << endl;
 			if (!p2Check) {
 				if (word == "P2") {
 					p2Check == true;
 					word = "";
+					cout << "got P2" << endl;
 				}
 			}
 			else if (!dimensionCheck) {
@@ -27,11 +31,13 @@ string uploadData(string FileName) {
 					else if (word[i] == ' ') {
 						xLength = atoi(dimension.c_str());
 						dimension = "";
+						cout << "got x" << endl;
 					}
 					else if (word[i] == '\n') {
 						yLength = atoi(dimension.c_str());
 						dimension = "";
 						dimensionCheck = true;
+						cout << "got y" << endl;
 					}
 				}
 			}
@@ -42,6 +48,7 @@ string uploadData(string FileName) {
 				else {
 					maxVal = atoi(maxSize.c_str());
 					maxCheck = true;
+					cout << "got maxSize" << endl;
 				}
 			}
 			else {
@@ -50,8 +57,10 @@ string uploadData(string FileName) {
 			}
 		}
 		else if (letter == '#') {
+			cout << "found the comment" << endl;
 			while (letter != '\n') {
 				inFile.get(letter);
+				cout << letter << endl;
 			}
 			comment = true;
 		}
@@ -60,13 +69,12 @@ string uploadData(string FileName) {
 			word += letter;
 		}
 	}
-
 	return pixelStr;
 }
 
 int main() {
 	string pixels = uploadData("test.pgm");
-	cout << pixels << endl;;
+	cout << pixels;
 	return 0;
 }
 

@@ -5,7 +5,7 @@
 using namespace std;
 
 string uploadData(string FileName) {
-	int xLength, yLength, maxVal;
+	int xLength = 0, yLength = 0, maxVal = 0;
 	string word = "", dimension = "", maxSize = "", pixelStr = "";
 	char letter;
 	bool p2Check = false, dimensionCheck = false, maxCheck = false, comment = false;
@@ -13,8 +13,6 @@ string uploadData(string FileName) {
 	while (inFile.get(letter)) {
 		comment = false;
 		if (letter == '\n') {
-			cout << "found a newline" << endl;
-			cout << word << endl;
 			if (!p2Check) {
 				if (word == "P2") {
 					p2Check = true;
@@ -27,26 +25,23 @@ string uploadData(string FileName) {
 						dimension += word[i];
 					}
 					else if (word[i] == ' ') {
-						if (dimension == "") {
+						if (xLength == 0) {
 							xLength = atoi(dimension.c_str());
 							dimension = "";
 						}
 					}
-					else if (word[i] == '\n') {
+					 if (i == word.length()-1) {
 						yLength = atoi(dimension.c_str());
 						dimension = "";
 						dimensionCheck = true;
+						word = "";
 					}
 				}
 			}
 			else if (!maxCheck) {
-				if (letter != ' ' || letter != '\n') {
-					maxSize += letter;
-				}
-				else {
-					maxVal = atoi(maxSize.c_str());
-					maxCheck = true;
-				}
+				maxVal = atoi(word.c_str());
+				maxCheck = true;
+				word = "";
 			}
 			else {
 				pixelStr += word;
@@ -54,7 +49,6 @@ string uploadData(string FileName) {
 			}
 		}
 		else if (letter == '#') {
-			cout << "found the comment" << endl;
 			while (letter != '\n') {
 				inFile.get(letter);
 			}

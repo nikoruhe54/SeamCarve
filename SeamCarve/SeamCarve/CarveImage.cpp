@@ -60,15 +60,13 @@ string uploadData(string FileName) {
 			word += letter;
 		}
 	}
-	cout << "The X dimension is: " <<  xLength <<  endl;
-	cout << "The Y dimension is: " <<  yLength <<  endl;
-	cout << "The max pixel is: " << maxVal << endl;
+
 	return pixelStr;
 }
 
 int main() {
 	string pixels = uploadData("test.pgm");
-	cout << pixels;
+	cout << pixels << endl;;
 	return 0;
 }
 

@@ -68,8 +68,9 @@ string uploadData(string FileName) {
 	return pixelStr;
 }
 
-void main() {
+int main() {
 	string pixels = uploadData("test.pgm");
 	cout << pixels;
+	return 0;
 }
 

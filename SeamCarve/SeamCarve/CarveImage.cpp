@@ -45,6 +45,7 @@ string uploadData(string FileName) {
 			}
 			else {
 				pixelStr += word;
+				pixelStr += "\n";
 				word = "";
 			}
 		}

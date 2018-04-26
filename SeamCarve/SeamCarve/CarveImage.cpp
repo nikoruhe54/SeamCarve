@@ -70,8 +70,17 @@ int** buildPixelMatrix(string pixels, const int xLen, const int yLen) {
 	int xCount = 0, yCount = 0;
 	int pixelMatrix[xLen][yLen];
 	for (int i = 0; i < pixels.length(); i++) {
-
+		if (xCount < xLen) {
+			pixelMatrix[xCount][yCount] = pixels[i];
+			xCount++;
+		}
+		else {
+			yCount++;
+			xCount = 0;
+			pixelMatrix[xCount][yCount] = pixels[i];
+		}
 	}
+	return pixelMatrix;
 }
 
 int main() {
@@ -79,10 +88,8 @@ int main() {
 	string pixels = uploadData("test.pgm", xLen, yLen, maxLen);
 	const int x = xLen;
 	const int y = yLen;
-	cout << xLen << endl;
-	cout << yLen << endl;
-	cout << maxLen << endl;
-	cout << pixels;
+	int pixelMatrix[x][y] = buildPixelMatrix(pixels, x, y);
+	cout << "made it to end" << endl;
 	return 0;
 }
 

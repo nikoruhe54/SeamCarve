@@ -11,6 +11,7 @@ string uploadData(string FileName) {
 	bool p2Check = false, dimensionCheck = false, maxCheck = false, comment = false;
 	ifstream inFile(FileName);
 	while (inFile) {
+		cout << "got to main inFileLoop" << endl;
 		comment = false;
 		inFile >> letter;
 		if (letter == '\n') {
@@ -69,9 +70,8 @@ string uploadData(string FileName) {
 }
 
 int main() {
-	//string pixels = uploadData("test.pgm");
-	//cout << pixels;
-	cout << "hello world";
+	string pixels = uploadData("test.pgm");
+	cout << pixels;
 	return 0;
 }
 

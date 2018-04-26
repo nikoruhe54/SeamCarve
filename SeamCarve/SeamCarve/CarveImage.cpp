@@ -4,7 +4,7 @@
 #include <sstream>
 using namespace std;
 
-string uploadData(string FileName) {
+string uploadData(string FileName, int &x, int &y, int &max) {
 	int xLength = 0, yLength = 0, maxVal = 0;
 	string word = "", dimension = "", maxSize = "", pixelStr = "";
 	char letter;
@@ -60,14 +60,18 @@ string uploadData(string FileName) {
 			word += letter;
 		}
 	}
-	cout << xLength << " is the length of x" << endl;
-	cout << yLength << " is the length of y" << endl;
-	cout << maxVal << " is the max pixel val" << endl;
+	x = xLength;
+	y = yLength;
+	max = maxVal;
 	return pixelStr;
 }
 
 int main() {
-	string pixels = uploadData("test.pgm");
+	int xLen = 0, yLen = 0, maxLen = 0;
+	cout << xLen << endl;
+	cout << yLen << endl;
+	cout << maxLen << endl;
+	string pixels = uploadData("test.pgm", xLen, yLen, maxLen);
 	cout << pixels;
 	return 0;
 }

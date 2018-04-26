@@ -1,4 +1,6 @@
 ﻿  CarveImage.cpp
-c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(25): warning C4018: '<': signed/unsigned mismatch
-  SeamCarve.vcxproj -> C:\Users\nikor_000\SeamCarve\SeamCarve\Debug\SeamCarve.exe
-  SeamCarve.vcxproj -> C:\Users\nikor_000\SeamCarve\SeamCarve\Debug\SeamCarve.pdb (Partial PDB)
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(23): warning C4018: '<': signed/unsigned mismatch
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(71): error C2131: expression did not evaluate to a constant
+  c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(71): note: failure was caused by a read of a variable outside its lifetime
+  c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(71): note: see usage of 'xLen'
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(72): warning C4018: '<': signed/unsigned mismatch

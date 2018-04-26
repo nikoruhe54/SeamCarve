@@ -66,9 +66,19 @@ string uploadData(string FileName, int &x, int &y, int &max) {
 	return pixelStr;
 }
 
+int** buildPixelMatrix(string pixels, const int xLen, const int yLen) {
+	int xCount = 0, yCount = 0;
+	int pixelMatrix[xLen][yLen];
+	for (int i = 0; i < pixels.length(); i++) {
+
+	}
+}
+
 int main() {
 	int xLen = 0, yLen = 0, maxLen = 0;
 	string pixels = uploadData("test.pgm", xLen, yLen, maxLen);
+	const int x = xLen;
+	const int y = yLen;
 	cout << xLen << endl;
 	cout << yLen << endl;
 	cout << maxLen << endl;

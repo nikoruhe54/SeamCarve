@@ -68,18 +68,26 @@ string uploadData(string FileName, int &x, int &y, int &max) {
 
 void buildPixelMatrix(int** &pixelMatrix, string pixels, int xLen, int yLen) {
 	int xCount = 0, yCount = 0;
+	string tempNum = "";
 	for (int i = 0; i < pixels.length(); i++) {
 		if (xCount < xLen) {
 			if (pixels[i] != ' ' && pixels[i] != '\n' && pixels[i] != '\t') {
-				pixelMatrix[xCount][yCount] = int(pixels[i]);
+				tempNum += pixels[i];
+			}
+			else {
+				pixelMatrix[xCount][yCount] = atoi(tempNum.c_str());
+				tempNum = "";
 				xCount++;
 			}
 		}
 		else {
 			if (pixels[i] != ' ' && pixels[i] != '\n' && pixels[i] != '\t') {
+				tempNum += pixels[i];
+			} 
+			else {
 				yCount++;
 				xCount = 0;
-				pixelMatrix[xCount][yCount] = int(pixels[i]);
+				pixelMatrix[xCount][yCount] = atoi(tempNum.c_str());
 			}
 		}
 	}

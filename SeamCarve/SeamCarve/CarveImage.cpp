@@ -61,7 +61,7 @@ string uploadData(string FileName) {
 			cout << "found the comment" << endl;
 			while (letter != '\n') {
 				inFile >> letter;
-				cout << "does not like the recursive file search" << endl;
+				cout << letter << endl;
 			}
 			comment = true;
 		}

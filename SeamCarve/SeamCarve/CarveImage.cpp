@@ -58,8 +58,10 @@ string uploadData(string FileName) {
 			}
 		}
 		else if (letter == '#') {
+			cout << "found the comment" << endl;
 			while (letter != '\n') {
 				inFile >> letter;
+				cout << "does not like the recursive file search" << endl;
 			}
 			comment = true;
 		}

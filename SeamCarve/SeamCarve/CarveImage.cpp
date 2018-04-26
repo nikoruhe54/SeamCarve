@@ -15,6 +15,8 @@ string uploadData(string FileName) {
 		comment = false;
 		inFile >> letter;
 		if (letter == '\n') {
+			cout << "found a newline" << endl;
+			cout << word << endl;
 			if (!p2Check) {
 				if (word == "P2") {
 					p2Check == true;

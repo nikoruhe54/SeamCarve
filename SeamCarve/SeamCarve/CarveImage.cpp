@@ -97,7 +97,7 @@ void buildPixelMatrix(int** &pixelMatrix, string pixels, int xLen, int yLen) {
 
 int main() {
 	int xLen = 0, yLen = 0, maxLen = 0;
-	string pixels = uploadData("test.pgm", xLen, yLen, maxLen);
+	string pixels = uploadData("bug.pgm", xLen, yLen, maxLen);
 	int** pixelMatrix = new int*[yLen];
 	for (int j = 0; j < yLen; j++) {
 		pixelMatrix[j] = new int[xLen];

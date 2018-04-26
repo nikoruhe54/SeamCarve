@@ -10,10 +10,9 @@ string uploadData(string FileName) {
 	char letter;
 	bool p2Check = false, dimensionCheck = false, maxCheck = false, comment = false;
 	ifstream inFile(FileName);
-	while (inFile) {
+	while (inFile.get(letter)) {
 		cout << "got to main inFileLoop" << endl;
 		comment = false;
-		inFile >> letter;
 		if (letter == '\n') {
 			cout << "found a newline" << endl;
 			cout << word << endl;
@@ -60,7 +59,7 @@ string uploadData(string FileName) {
 		else if (letter == '#') {
 			cout << "found the comment" << endl;
 			while (letter != '\n' || letter != ' ') {
-				inFile >> letter;
+				inFile.get(letter);
 				cout << letter << endl;
 			}
 			comment = true;

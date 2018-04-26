@@ -95,8 +95,8 @@ int main() {
 	buildPixelMatrix(pixelMatrix, pixels, xLen, yLen);
 
 	for (int i = 0; i < xLen; i++) {
-		for (int x = 0; i < yLen; y++) {
-			cout << pixelMatrix[i][x] << " ";
+		for (int a = 0; a < yLen; a++) {
+			cout << pixelMatrix[i][a] << " ";
 		}
 		cout << endl;
 	}

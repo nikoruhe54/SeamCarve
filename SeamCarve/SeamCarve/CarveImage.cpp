@@ -88,6 +88,7 @@ void buildPixelMatrix(int** &pixelMatrix, string pixels, int xLen, int yLen) {
 				yCount++;
 				xCount = 0;
 				pixelMatrix[xCount][yCount] = atoi(tempNum.c_str());
+				tempNum = "";
 			}
 		}
 	}

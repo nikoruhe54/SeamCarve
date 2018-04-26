@@ -68,10 +68,10 @@ string uploadData(string FileName, int &x, int &y, int &max) {
 
 int main() {
 	int xLen = 0, yLen = 0, maxLen = 0;
+	string pixels = uploadData("test.pgm", xLen, yLen, maxLen);
 	cout << xLen << endl;
 	cout << yLen << endl;
 	cout << maxLen << endl;
-	string pixels = uploadData("test.pgm", xLen, yLen, maxLen);
 	cout << pixels;
 	return 0;
 }

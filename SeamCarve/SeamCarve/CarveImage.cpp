@@ -60,6 +60,9 @@ string uploadData(string FileName) {
 			word += letter;
 		}
 	}
+	cout << xLength << " is the length of x" << endl;
+	cout << ylength << " is the length of y" << endl;
+	cout << maxVal << " is the max pixel val" << endl;
 	return pixelStr;
 }
 

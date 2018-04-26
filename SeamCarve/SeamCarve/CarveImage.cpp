@@ -96,7 +96,7 @@ int main() {
 
 	for (int i = 0; i < xLen; i++) {
 		for (int a = 0; a < yLen; a++) {
-			cout << pixelMatrix[i][a] << " ";
+			cout << pixelMatrix[a][i] << " ";
 		}
 		cout << endl;
 	}

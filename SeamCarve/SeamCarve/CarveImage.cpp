@@ -61,7 +61,7 @@ string uploadData(string FileName) {
 		}
 	}
 	cout << xLength << " is the length of x" << endl;
-	cout << ylength << " is the length of y" << endl;
+	cout << yLength << " is the length of y" << endl;
 	cout << maxVal << " is the max pixel val" << endl;
 	return pixelStr;
 }

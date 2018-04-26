@@ -58,7 +58,7 @@ string uploadData(string FileName) {
 		}
 		else if (letter == '#') {
 			cout << "found the comment" << endl;
-			while (letter != '\n' || letter != ' ') {
+			while (letter != '\n') {
 				inFile.get(letter);
 				cout << letter << endl;
 			}

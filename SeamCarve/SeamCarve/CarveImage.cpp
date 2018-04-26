@@ -69,8 +69,9 @@ string uploadData(string FileName) {
 }
 
 int main() {
-	string pixels = uploadData("test.pgm");
-	cout << pixels;
+	//string pixels = uploadData("test.pgm");
+	//cout << pixels;
+	cout << "hello world";
 	return 0;
 }
 

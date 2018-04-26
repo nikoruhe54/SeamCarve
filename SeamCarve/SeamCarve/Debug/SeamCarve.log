@@ -1,5 +1,4 @@
 ﻿  CarveImage.cpp
-c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(21): warning C4553: '==': operator has no effect; did you intend '='?
-c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(27): warning C4018: '<': signed/unsigned mismatch
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(25): warning C4018: '<': signed/unsigned mismatch
   SeamCarve.vcxproj -> C:\Users\nikor_000\SeamCarve\SeamCarve\Debug\SeamCarve.exe
   SeamCarve.vcxproj -> C:\Users\nikor_000\SeamCarve\SeamCarve\Debug\SeamCarve.pdb (Partial PDB)

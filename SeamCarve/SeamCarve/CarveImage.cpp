@@ -59,15 +59,7 @@ string uploadData(string FileName) {
 		}
 		else if (letter == '#') {
 			cout << "found the comment" << endl;
-			char temp = '_';
-			while (letter != '\n') {
-				for (long x = 0; x < 999999999; x++) {
-
-				}
-				if (temp != letter) {
-					cout << letter << endl;
-					temp = letter;
-				}
+			while (letter != '\n' || letter != ' ') {
 				inFile >> letter;
 				cout << letter << endl;
 			}

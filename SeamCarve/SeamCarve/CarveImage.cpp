@@ -6,8 +6,8 @@
 using namespace std;
 
 
-int** uploadData(string FileName) {
-	int xLength = 0, yLength = 0, maxVal = 0;
+int** uploadData(string FileName, int &xLength, int &yLength) {
+	int maxVal = 0;
 	string word = "", dimension = "", maxSize = "", pixelStr = "";
 	string xNum = "", yNum = "";
 	char letter;
@@ -64,9 +64,57 @@ int** uploadData(string FileName) {
 	return pixelMatrix;
 }
 
-int main() {
-	int** pixelMatrix = uploadData("bug.pgm");
+int** makeEMatrix(int** pixelMatrix, int x, int y) {
+	int** energy = new int*[y];
+	for (int j = 0; j < y; j++) {
+		energy[j] = new int[x];
+	}
 
+	for (int Yval = 0; Yval < y; Yval++) {
+		for (int Xval = 0; Xval < x; Xval++) {
+			if (Yval == 0 && Xval == 0) {
+				energy[Yval][Xval] = abs(pixelMatrix[Yval + 1][Xval] - pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval][Xval + 1]- pixelMatrix[Yval][Xval]);
+			}
+			else if (Yval == 0 && Xval == x - 1) {
+				energy[Yval][Xval] = abs(pixelMatrix[Yval + 1][Xval]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval][Xval - 1]- pixelMatrix[Yval][Xval]);
+			}
+			else if (Yval == y - 1 && Xval == 0) {
+				energy[Yval][Xval] = abs(pixelMatrix[Yval - 1][Xval]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval][Xval + 1]- pixelMatrix[Yval][Xval]);
+			}
+			else if (Yval == y - 1 && Xval == x - 1) {
+				energy[Yval][Xval] = abs(pixelMatrix[Yval - 1][Xval]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval][Xval - 1]- pixelMatrix[Yval][Xval]);
+			}
+			else if (Yval == 0){
+				energy[Yval][Xval] = abs(pixelMatrix[Yval][Xval - 1]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval][Xval + 1]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval + 1][Xval]- pixelMatrix[Yval][Xval]);
+			}
+			else if (Yval == y - 1) {
+				energy[Yval][Xval] = abs(pixelMatrix[Yval][Xval - 1]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval][Xval + 1]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval - 1][Xval]- pixelMatrix[Yval][Xval]);
+			}
+			else if (Xval == 0) {
+				energy[Yval][Xval] = abs(pixelMatrix[Yval - 1][Xval]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval + 1][Xval]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval][Xval + 1]- pixelMatrix[Yval][Xval]);
+			}
+			else if (Xval == x - 1) {
+				energy[Yval][Xval] = abs(pixelMatrix[Yval - 1][Xval]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval + 1][Xval]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval][Xval - 1]- pixelMatrix[Yval][Xval]);
+			}
+			else {
+				energy[Yval][Xval] = abs(pixelMatrix[Yval][Xval - 1] - pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval][Xval + 1]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval - 1][Xval]- pixelMatrix[Yval][Xval]) + abs(pixelMatrix[Yval + 1][Xval]- pixelMatrix[Yval][Xval]);
+			}
+		}
+	}
+	cout << "here is the energy matrix" << endl;
+	for (int j = 0; j < y; j++) {
+		for (int k = 0; k < x; k++) {
+			cout << energy[j][k] << " ";
+		}
+		cout << endl;
+	}
+	return energy;
+}
+
+int main() {
+	int x = 0, y = 0;
+	int** pixelMatrix = uploadData("test.pgm", x, y);
+	int** eMatrix = makeEMatrix(pixelMatrix, x, y);
 	while (1) {
 
 	}

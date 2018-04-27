@@ -51,6 +51,12 @@ int** uploadData(string FileName) {
 			inFile >> pixelMatrix[y][x];
 		}
 	}
+	for (int j = 0; j < yLength; j++) {
+		for (int k = 0; k < xLength; k++) {
+			cout << pixelMatrix[j][k] << " ";
+		}
+		cout << endl;
+	}
 	return pixelMatrix;
 }
 

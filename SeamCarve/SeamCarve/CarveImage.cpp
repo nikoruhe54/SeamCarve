@@ -111,10 +111,72 @@ int** makeEMatrix(int** pixelMatrix, int x, int y) {
 	return energy;
 }
 
+int** carveVertical(int** eMatrix, int x, int y) {
+	int Ylen = y;
+	int Xlen = x-1;
+	int minIndex = 0, carve = 0, temp = 65000;
+	bool firstRow = true;
+	int**  newImg= new int*[Ylen];
+	for (int j = 0; j < y; j++) {
+		newImg[j] = new int[Xlen];
+	}
+
+	for (int Y = 0; Y < y; Y++) {
+		for (int X = 0; X < x; X++) {
+			if (firstRow == true) {
+				if (eMatrix[Y][X] < temp) {
+					temp = eMatrix[Y][X];
+					minIndex = X;
+					carve = X;
+				}
+			}
+			else {
+				if (X <= carve + 1 && X >= carve - 1) {
+					if (eMatrix[Y][X] < temp) {
+						temp = eMatrix[Y][X];
+						minIndex = X;
+					}
+				}
+			}
+		}
+		firstRow = false;
+		temp = 65000;
+		eMatrix[Y][minIndex] = -1;
+		carve = minIndex;
+	}
+
+	cout << "here is the vertical Seam" << endl;
+	//build the vertical seam
+	int z = 0;
+	for (int j = 0; j < y; j++) {
+		for (int k = 0; k < x; k++) {
+			if (eMatrix[j][k] != -1) {
+				newImg[j][z] = eMatrix[j][k];
+				cout << newImg[j][z] << " ";
+				z++;
+			}
+		}
+		z = 0;
+		cout << endl;
+	}
+	return newImg;
+}
+
 int main() {
 	int x = 0, y = 0;
 	int** pixelMatrix = uploadData("test.pgm", x, y);
 	int** eMatrix = makeEMatrix(pixelMatrix, x, y);
+	int verticalSeams = 2, horizontalSeams = 0;
+	int** verticalImgCarve = new int*[y];
+	if (verticalSeams > 0) {
+		verticalImgCarve = carveVertical(eMatrix, x, y);
+		verticalSeams--;
+	}
+	while (verticalSeams > 0) {
+		verticalImgCarve = carveVertical(verticalImgCarve, --x, y);
+		verticalSeams--;
+	}
+
 	while (1) {
 
 	}

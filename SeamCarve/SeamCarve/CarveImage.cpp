@@ -258,16 +258,18 @@ int main(int argc, char *argv[]) {
 	if (myfile.is_open())
 	{
 		myfile << "P2\n";
-		myfile << max;
-		myfile << "\n";
 		myfile << x;
 		myfile << " ";
 		myfile << y;
 		myfile << "\n";
+		myfile << max;
+		myfile << "\n";
 		for (int a = 0; a < y; a++) {
 			for (int b = 0; b < x; b++) {
 				cout << verticalImgCarve[a][b] << " ";
+				myfile << verticalImgCarve[a][b] << " ";
 			}
+			myfile << "\n";
 			cout << endl;
 		}
 		myfile.close();

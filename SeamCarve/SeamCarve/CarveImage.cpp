@@ -111,6 +111,56 @@ int** makeEMatrix(int** pixelMatrix, int x, int y) {
 	return energy;
 }
 
+int** carveHorizontal(int** eMatrix, int x, int y) {
+	int Ylen = y - 1;
+	int Xlen = x;
+	int minIndex = 0, carve = 0, temp = 65000;
+	bool firstCol = true;
+	int** newImg = new int*[Ylen];
+	for (int j = 0; j < y; j++) {
+		newImg[j] = new int[Xlen];
+	}
+	for (int X = 0; X < x; X++) {
+		for (int Y = 0; Y < y; Y++) {
+			if (firstCol == true) {
+				if (eMatrix[Y][X] < temp) {
+					temp = eMatrix[Y][X];
+					minIndex = Y;
+					carve = Y;
+				}
+			}
+			else {
+				if (Y <= carve + 1 && Y >= carve - 1) {
+					if (eMatrix[Y][X] < temp) {
+						temp = eMatrix[Y][X];
+						minIndex = Y;
+					}
+				}
+			}
+		}
+		firstCol = false;
+		temp = 65000;
+		eMatrix[minIndex][X] = -1;
+		carve = minIndex;
+	}
+
+	//cout << "here is the horizontal Seam" << endl;
+	//build the horizontal seam
+	int z = 0;
+	for (int a = 0; a < x; a++) {
+		for (int b = 0; b < y; b++) {
+			if (eMatrix[b][a] != -1) {
+				newImg[z][a] = eMatrix[b][a];
+				//cout << newImg[z][a] << " ";
+				z++;
+			}
+		}
+		z = 0;
+		//cout << endl;
+	}
+	return newImg;
+}
+
 int** carveVertical(int** eMatrix, int x, int y) {
 	int Ylen = y;
 	int Xlen = x-1;
@@ -145,36 +195,76 @@ int** carveVertical(int** eMatrix, int x, int y) {
 		carve = minIndex;
 	}
 
-	cout << "here is the vertical Seam" << endl;
+	//cout << "here is the vertical Seam" << endl;
 	//build the vertical seam
 	int z = 0;
 	for (int j = 0; j < y; j++) {
 		for (int k = 0; k < x; k++) {
 			if (eMatrix[j][k] != -1) {
 				newImg[j][z] = eMatrix[j][k];
-				cout << newImg[j][z] << " ";
+				//cout << newImg[j][z] << " ";
 				z++;
 			}
 		}
 		z = 0;
-		cout << endl;
+		//cout << endl;
 	}
 	return newImg;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+	cout << argv[1] << endl;
 	int x = 0, y = 0;
+	bool cutLong = false, cutWide = false;
 	int** pixelMatrix = uploadData("test.pgm", x, y);
 	int** eMatrix = makeEMatrix(pixelMatrix, x, y);
-	int verticalSeams = 2, horizontalSeams = 0;
+
+	int verticalSeams = 2, horizontalSeams = 2;
+
 	int** verticalImgCarve = new int*[y];
 	if (verticalSeams > 0) {
+		cutLong = true;
 		verticalImgCarve = carveVertical(eMatrix, x, y);
 		verticalSeams--;
+		x--;
 	}
 	while (verticalSeams > 0) {
-		verticalImgCarve = carveVertical(verticalImgCarve, --x, y);
+		verticalImgCarve = carveVertical(verticalImgCarve, x, y);
 		verticalSeams--;
+		x--;
+	}
+
+	if (horizontalSeams > 0 && cutLong == false) {
+		verticalImgCarve = carveHorizontal(eMatrix, x, y);
+		horizontalSeams--;
+		y--;
+	}
+	else if (horizontalSeams > 0 && cutLong == true) {
+		verticalImgCarve = carveHorizontal(verticalImgCarve, x, y);
+		horizontalSeams--;
+		y--;
+	}
+
+	while (horizontalSeams > 0) {
+		verticalImgCarve = carveHorizontal(verticalImgCarve, x, y);
+		horizontalSeams--;
+		y--;
+	}
+	cout << "Here is the final Pic" << endl;
+
+	ofstream myfile("example.txt");
+	if (myfile.is_open())
+	{
+		myfile << "This is a line.\n";
+		myfile << "This is another line.\n";
+		myfile.close();
+	}
+
+	for (int a = 0; a < y; a++) {
+		for (int b = 0; b < x; b++) {
+			cout << verticalImgCarve[a][b] << " ";
+		}
+		cout << endl;
 	}
 
 	while (1) {

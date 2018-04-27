@@ -6,7 +6,7 @@
 using namespace std;
 
 
-int** uploadData(string FileName, int &xLength, int &yLength) {
+int** uploadData(string FileName, int &xLength, int &yLength, int &max) {
 	int maxVal = 0;
 	string word = "", dimension = "", maxSize = "", pixelStr = "";
 	string xNum = "", yNum = "";
@@ -27,6 +27,7 @@ int** uploadData(string FileName, int &xLength, int &yLength) {
 	while (maxSize[0] == '#') {
 		getline(inFile, maxSize);
 	}
+	max = atoi(maxSize.c_str());
 
 	bool splitD = false;
 	for (int i = 0; i < dimension.length(); i++) {
@@ -214,9 +215,9 @@ int** carveVertical(int** eMatrix, int x, int y) {
 
 int main(int argc, char *argv[]) {
 
-	int x = 0, y = 0;
+	int x = 0, y = 0, max = 0;
 	bool cutLong = false, cutWide = false;
-	int** pixelMatrix = uploadData(argv[1], x, y);
+	int** pixelMatrix = uploadData(argv[1], x, y, max);
 	int** eMatrix = makeEMatrix(pixelMatrix, x, y);
 
 	int verticalSeams = stoi(argv[2]), horizontalSeams = stoi(argv[3]);
@@ -251,25 +252,27 @@ int main(int argc, char *argv[]) {
 		y--;
 	}
 	cout << "Here is the final Pic" << endl;
-
-	ofstream myfile("example.txt");
+	string fileType = "_processed.pgm";
+	string newFileName = argv[1] + fileType;
+	ofstream myfile(newFileName);
 	if (myfile.is_open())
 	{
-		myfile << "This is a line.\n";
-		myfile << "This is another line.\n";
+		myfile << "P2\n";
+		myfile << max;
+		myfile << "\n";
+		myfile << x;
+		myfile << " ";
+		myfile << y;
+		myfile << "\n";
+		for (int a = 0; a < y; a++) {
+			for (int b = 0; b < x; b++) {
+				cout << verticalImgCarve[a][b] << " ";
+			}
+			cout << endl;
+		}
 		myfile.close();
 	}
 
-	for (int a = 0; a < y; a++) {
-		for (int b = 0; b < x; b++) {
-			cout << verticalImgCarve[a][b] << " ";
-		}
-		cout << endl;
-	}
-
-	while (1) {
-
-	}
 	return 0;
 }
 

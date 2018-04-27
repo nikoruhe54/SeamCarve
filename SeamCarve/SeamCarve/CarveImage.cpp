@@ -6,7 +6,7 @@
 using namespace std;
 
 
-int** uploadData(string FileName) {
+void uploadData(string FileName) {
 	int xLength = 0, yLength = 0, maxVal = 0;
 	string word = "", dimension = "", maxSize = "", pixelStr = "";
 	string xNum = "", yNum = "";
@@ -57,11 +57,11 @@ int** uploadData(string FileName) {
 		}
 		cout << endl;
 	}
-	return pixelMatrix;
+	//return pixelMatrix;
 }
 
 int main() {
-	int** pixelMatrix = uploadData("test.pgm");
+	uploadData("test.pgm");
 	return 0;
 }
 

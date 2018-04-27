@@ -267,7 +267,7 @@ int main(int argc, char *argv[]) {
 		for (int a = 0; a < y; a++) {
 			for (int b = 0; b < x; b++) {
 				cout << verticalImgCarve[a][b] << " ";
-				myfile << verticalImgCarve[a][b] << " ";
+				myfile << verticalImgCarve[a][b] << "\t";
 			}
 			myfile << "\n";
 			cout << endl;

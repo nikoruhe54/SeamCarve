@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void uploadData(string FileName) {
+int** uploadData(string FileName) {
 	int xLength = 0, yLength = 0, maxVal = 0;
 	string word = "", dimension = "", maxSize = "", pixelStr = "";
 	string xNum = "", yNum = "";
@@ -30,12 +30,16 @@ void uploadData(string FileName) {
 
 	bool splitD = false;
 	for (int i = 0; i < dimension.length(); i++) {
-		if (dimension[i] != ' ' && splitD == false) {
-			xNum += dimension[i];
+		if (dimension[i] != ' ') {
+			if (splitD == false) {
+				xNum += dimension[i];
+			}
+			if (splitD == true) {
+				yNum += dimension[i];
+			}
 		}
-		else if (dimension[i] != ' ' && dimension[i] != '\n'){
+		else {
 			splitD = true;
-			yNum += dimension[i];
 		}
 	}
 
@@ -57,11 +61,15 @@ void uploadData(string FileName) {
 		}
 		cout << endl;
 	}
-	//return pixelMatrix;
+	return pixelMatrix;
 }
 
 int main() {
-	uploadData("test.pgm");
+	int** pixelMatrix = uploadData("bug.pgm");
+
+	while (1) {
+
+	}
 	return 0;
 }
 

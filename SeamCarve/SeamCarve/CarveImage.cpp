@@ -42,7 +42,8 @@ string uploadData(string FileName, int &x, int &y, int &max) {
 	xLength = atoi(xNum.c_str());
 	yLength = atoi(yNum.c_str());
 
-	while (getline(inFile, word)) {
+	while (inFile) {
+		getline(inFile, word);
 		if (word[0] != '#') {
 			pixelStr += word;
 		}

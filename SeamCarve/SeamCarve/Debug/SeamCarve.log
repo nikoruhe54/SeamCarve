@@ -1,5 +1,1 @@
-﻿  CarveImage.cpp
-c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(23): warning C4018: '<': signed/unsigned mismatch
-c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(72): warning C4018: '<': signed/unsigned mismatch
-  SeamCarve.vcxproj -> C:\Users\nikor_000\SeamCarve\SeamCarve\Debug\SeamCarve.exe
-  SeamCarve.vcxproj -> C:\Users\nikor_000\SeamCarve\SeamCarve\Debug\SeamCarve.pdb (Partial PDB)
+﻿LINK : fatal error LNK1168: cannot open C:\Users\nikor_000\SeamCarve\SeamCarve\Debug\SeamCarve.exe for writing

@@ -1,15 +1,54 @@
 #include <string>
 #include <iostream>
+#include <cstdlib>
 #include <fstream>
 #include <sstream>
 using namespace std;
 
+
 string uploadData(string FileName, int &x, int &y, int &max) {
 	int xLength = 0, yLength = 0, maxVal = 0;
 	string word = "", dimension = "", maxSize = "", pixelStr = "";
+	string xNum = "", yNum = "";
 	char letter;
 	bool p2Check = false, dimensionCheck = false, maxCheck = false, comment = false;
 	ifstream inFile(FileName);
+	getline(inFile, word);
+	while (word != "P2") {
+		getline(inFile, word);
+	}
+
+	getline(inFile, dimension);
+	while (dimension[0] == '#') {
+		getline(inFile, dimension);
+	}
+
+	getline(inFile, maxSize);
+	while (maxSize[0] == '#') {
+		getline(inFile, maxSize);
+	}
+
+	bool splitD = false;
+	for (int i = 0; i < dimension.length(); i++) {
+		if (dimension[i] != ' ' && splitD == false) {
+			xNum += dimension[i];
+		}
+		else if (dimension[i] != ' ' && dimension[i] != '\n'){
+			splitD = true;
+			yNum += dimension[i];
+		}
+	}
+
+	xLength = stoi(xNum);
+	yLength = stoi(yNum);
+
+	while (getline(inFile, word)) {
+		if (word[0] != '#') {
+			pixelStr += word;
+		}
+	}
+	return pixelStr;
+	/*
 	while (inFile.get(letter)) {
 		comment = false;
 		if (letter == '\n') {
@@ -64,8 +103,10 @@ string uploadData(string FileName, int &x, int &y, int &max) {
 	y = yLength;
 	max = maxVal;
 	return pixelStr;
+	*/
 }
 
+/*
 void buildPixelMatrix(int** &pixelMatrix, string pixels, int xLen, int yLen) {
 	int xCount = 0, yCount = 0;
 	string tempNum = "";
@@ -94,7 +135,7 @@ void buildPixelMatrix(int** &pixelMatrix, string pixels, int xLen, int yLen) {
 		}
 	}
 }
-
+*/
 int main() {
 	int xLen = 0, yLen = 0, maxLen = 0;
 	string pixels = uploadData("bug.pgm", xLen, yLen, maxLen);
@@ -102,14 +143,19 @@ int main() {
 	for (int j = 0; j < yLen; j++) {
 		pixelMatrix[j] = new int[xLen];
 	}
-	buildPixelMatrix(pixelMatrix, pixels, xLen, yLen);
-
+	//buildPixelMatrix(pixelMatrix, pixels, xLen, yLen);
+	/*
 	for (int i = 0; i < yLen; i++) {
 		for (int a = 0; a < xLen; a++) {
 			cout << pixelMatrix[a][i] << " ";
 		}
 		cout << endl;
 	}
+	*/
+	while (1) {
+
+	}
 	return 0;
 }
+
 

@@ -112,7 +112,7 @@ int** makeEMatrix(int** pixelMatrix, int x, int y) {
 	return energy;
 }
 
-int** carveHorizontal(int** eMatrix, int x, int y) {
+int** carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	int Ylen = y - 1;
 	int Xlen = x;
 	int minIndex = 0, carve = 0, temp = 65000;
@@ -162,7 +162,7 @@ int** carveHorizontal(int** eMatrix, int x, int y) {
 	return newImg;
 }
 
-int** carveVertical(int** eMatrix, int x, int y) {
+int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	int Ylen = y;
 	int Xlen = x-1;
 	int minIndex = 0, carve = 0, temp = 65000;
@@ -202,7 +202,7 @@ int** carveVertical(int** eMatrix, int x, int y) {
 	for (int j = 0; j < y; j++) {
 		for (int k = 0; k < x; k++) {
 			if (eMatrix[j][k] != -1) {
-				newImg[j][z] = eMatrix[j][k];
+				newImg[j][z] = pixelMatrix[j][k];
 				//cout << newImg[j][z] << " ";
 				z++;
 			}
@@ -225,29 +225,32 @@ int main(int argc, char *argv[]) {
 	int** verticalImgCarve = new int*[y];
 	if (verticalSeams > 0) {
 		cutLong = true;
-		verticalImgCarve = carveVertical(eMatrix, x, y);
+		verticalImgCarve = carveVertical(eMatrix, pixelMatrix, x, y);
 		verticalSeams--;
 		x--;
 	}
 	while (verticalSeams > 0) {
-		verticalImgCarve = carveVertical(verticalImgCarve, x, y);
+		verticalImgCarve = makeEMatrix(verticalImgCarve, x, y);
+		verticalImgCarve = carveVertical(verticalImgCarve, pixelMatrix, x, y);
 		verticalSeams--;
 		x--;
 	}
 
 	if (horizontalSeams > 0 && cutLong == false) {
-		verticalImgCarve = carveHorizontal(eMatrix, x, y);
+		verticalImgCarve = carveHorizontal(eMatrix, pixelMatrix, x, y);
 		horizontalSeams--;
 		y--;
 	}
 	else if (horizontalSeams > 0 && cutLong == true) {
-		verticalImgCarve = carveHorizontal(verticalImgCarve, x, y);
+		verticalImgCarve = makeEMatrix(verticalImgCarve, x, y);
+		verticalImgCarve = carveHorizontal(verticalImgCarve, pixelMatrix, x, y);
 		horizontalSeams--;
 		y--;
 	}
 
 	while (horizontalSeams > 0) {
-		verticalImgCarve = carveHorizontal(verticalImgCarve, x, y);
+		verticalImgCarve = makeEMatrix(verticalImgCarve, x, y);
+		verticalImgCarve = carveHorizontal(verticalImgCarve, pixelMatrix, x, y);
 		horizontalSeams--;
 		y--;
 	}

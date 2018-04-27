@@ -213,13 +213,13 @@ int** carveVertical(int** eMatrix, int x, int y) {
 }
 
 int main(int argc, char *argv[]) {
-	cout << argv[1] << endl;
+
 	int x = 0, y = 0;
 	bool cutLong = false, cutWide = false;
-	int** pixelMatrix = uploadData("test.pgm", x, y);
+	int** pixelMatrix = uploadData(argv[1], x, y);
 	int** eMatrix = makeEMatrix(pixelMatrix, x, y);
 
-	int verticalSeams = 2, horizontalSeams = 2;
+	int verticalSeams = stoi(argv[2]), horizontalSeams = stoi(argv[3]);
 
 	int** verticalImgCarve = new int*[y];
 	if (verticalSeams > 0) {

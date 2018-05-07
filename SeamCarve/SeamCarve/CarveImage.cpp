@@ -166,7 +166,8 @@ int** carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	int Ylen = y;
 	int Xlen = x-1;
-	int minIndex = 0, carve = 0, temp = 65000;
+	int minIndex = 0, carve = 0;
+	long temp = 9999999999;
 	bool firstRow = true;
 	int** totalMatrix = new int*[Ylen];
 	for (int t = 0; t < y; t++) {
@@ -174,6 +175,7 @@ int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	}
 
 	// build the total Matrix
+	cout << "here is the cumulative matrix" << endl;
 	for (int a = 0; a < y; a++) {
 		for (int b = 0; b < x; b++) {
 			if (a == 0) {
@@ -220,24 +222,24 @@ int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	for (int Y = 0; Y < y; Y++) {
 		for (int X = 0; X < x; X++) {
 			if (firstRow == true) {
-				if (eMatrix[Y][X] < temp) {
-					temp = eMatrix[Y][X];
+				if (totalMatrix[Y][X] < temp) {
+					temp = totalMatrix[Y][X];
 					minIndex = X;
 					carve = X;
 				}
 			}
 			else {
 				if (X <= carve + 1 && X >= carve - 1) {
-					if (eMatrix[Y][X] < temp) {
-						temp = eMatrix[Y][X];
+					if (totalMatrix[Y][X] < temp) {
+						temp = totalMatrix[Y][X];
 						minIndex = X;
 					}
 				}
 			}
 		}
 		firstRow = false;
-		temp = 65000;
-		eMatrix[Y][minIndex] = -1;
+		temp = 9999999999;
+		totalMatrix[Y][minIndex] = -1;
 		carve = minIndex;
 	}
 
@@ -246,7 +248,7 @@ int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	int z = 0;
 	for (int j = 0; j < y; j++) {
 		for (int k = 0; k < x; k++) {
-			if (eMatrix[j][k] != -1) {
+			if (totalMatrix[j][k] != -1) {
 				newImg[j][z] = pixelMatrix[j][k];
 				//cout << newImg[j][z] << " ";
 				z++;

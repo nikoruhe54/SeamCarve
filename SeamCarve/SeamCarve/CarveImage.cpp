@@ -190,7 +190,7 @@ int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 					cout << totalMatrix[a][b] << " ";
 				}
 				else {
-					totalMatrix[a][b] = eMatrix[a][b] + min(totalMatrix[a - 1][b], totalMatrix[a - 1][b - 1], totalMatrix[a - 1][b + 1]);
+					totalMatrix[a][b] = eMatrix[a][b] + min(min(totalMatrix[a - 1][b], totalMatrix[a - 1][b - 1]), totalMatrix[a - 1][b + 1]);
 					cout << totalMatrix[a][b] << " ";
 				}
 			}
@@ -204,7 +204,7 @@ int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 					cout << totalMatrix[a][b] << " ";
 				}
 				else {
-					totalMatrix[a][b] = eMatrix[a][b] + min(totalMatrix[a - 1][b], totalMatrix[a - 1][b - 1], totalMatrix[a - 1][b + 1]);
+					totalMatrix[a][b] = eMatrix[a][b] + min(min(totalMatrix[a - 1][b], totalMatrix[a - 1][b - 1]), totalMatrix[a - 1][b + 1]);
 					cout << totalMatrix[a][b] << " ";
 				}
 			}

@@ -163,7 +163,7 @@ int** carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	return newImg;
 }
 
-int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
+void carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	int Ylen = y;
 	int Xlen = x-1;
 	int minIndex = 0, carve = 0;
@@ -249,7 +249,7 @@ int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	for (int j = 0; j < y; j++) {
 		for (int k = 0; k < x; k++) {
 			if (totalMatrix[j][k] != -1) {
-				newImg[j][z] = pixelMatrix[j][k];
+				pixelMatrix[j][z] = pixelMatrix[j][k];
 				//cout << newImg[j][z] << " ";
 				z++;
 			}
@@ -257,7 +257,7 @@ int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 		z = 0;
 		//cout << endl;
 	}
-	return newImg;
+	//return newImg;
 }
 
 int main(int argc, char *argv[]) {
@@ -269,20 +269,20 @@ int main(int argc, char *argv[]) {
 
 	int verticalSeams = stoi(argv[2]), horizontalSeams = stoi(argv[3]);
 
-	int** verticalImgCarve = new int*[y];
+	//int** verticalImgCarve = new int*[y];
 	if (verticalSeams > 0) {
 		cutLong = true;
-		verticalImgCarve = carveVertical(eMatrix, pixelMatrix, x, y);
+		carveVertical(eMatrix, pixelMatrix, x, y);
 		verticalSeams--;
 		x--;
 	}
 	while (verticalSeams > 0) {
-		verticalImgCarve = makeEMatrix(verticalImgCarve, x, y);
-		verticalImgCarve = carveVertical(verticalImgCarve, pixelMatrix, x, y);
+		int** newEMatrix = makeEMatrix(pixelMatrix, x, y);
+		carveVertical(newEMatrix, pixelMatrix, x, y);
 		verticalSeams--;
 		x--;
 	}
-
+/*
 	if (horizontalSeams > 0 && cutLong == false) {
 		verticalImgCarve = carveHorizontal(eMatrix, pixelMatrix, x, y);
 		horizontalSeams--;
@@ -301,6 +301,7 @@ int main(int argc, char *argv[]) {
 		horizontalSeams--;
 		y--;
 	}
+	*/
 	cout << "Here is the final Pic" << endl;
 	string fileType = "_processed.pgm";
 	string newFileName = argv[1] + fileType;
@@ -316,8 +317,8 @@ int main(int argc, char *argv[]) {
 		myfile << "\n";
 		for (int a = 0; a < y; a++) {
 			for (int b = 0; b < x; b++) {
-				cout << verticalImgCarve[a][b] << " ";
-				myfile << verticalImgCarve[a][b] << "\t";
+				cout << pixelMatrix[a][b] << " ";
+				myfile << pixelMatrix[a][b] << "\t";
 			}
 			myfile << "\n";
 			cout << endl;

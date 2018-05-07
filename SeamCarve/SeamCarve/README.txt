@@ -13,3 +13,6 @@ g++ -std=c++11 CarveImage.cpp -o carve
 Type in the command to run the program (don't use the brackets):
 
 ./carve [pictureFileName] [# of vertical seams] [#of horizontal seams]
+
+Screenshots of the two balls image edited with the vertical seam cut has been included
+as well as screenshots of the mona lisa with a large horizontal seam removed.

@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 using namespace std;
 
 
@@ -167,6 +168,50 @@ int** carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	int Xlen = x-1;
 	int minIndex = 0, carve = 0, temp = 65000;
 	bool firstRow = true;
+	int** totalMatrix = new int*[Ylen];
+	for (int t = 0; t < y; t++) {
+		totalMatrix[t] = new int[x];
+	}
+
+	// build the total Matrix
+	for (int a = 0; a < y; a++) {
+		for (int b = 0; b < x; b++) {
+			if (a == 0) {
+				totalMatrix[a][b] = eMatrix[a][b];
+				cout << totalMatrix[a][b] << " ";
+			}
+			else if (a == y-1){
+				if (b == 0) {
+					totalMatrix[a][b] = eMatrix[a][b] + min(totalMatrix[a - 1][b], totalMatrix[a - 1][b + 1]);
+					cout << totalMatrix[a][b] << " ";
+				}
+				else if (b == x - 1) {
+					totalMatrix[a][b] = eMatrix[a][b] + min(totalMatrix[a - 1][b], totalMatrix[a - 1][b - 1]);
+					cout << totalMatrix[a][b] << " ";
+				}
+				else {
+					totalMatrix[a][b] = eMatrix[a][b] + min(totalMatrix[a - 1][b], totalMatrix[a - 1][b - 1], totalMatrix[a - 1][b + 1]);
+					cout << totalMatrix[a][b] << " ";
+				}
+			}
+			else {
+				if (b == 0) {
+					totalMatrix[a][b] = eMatrix[a][b] + min(totalMatrix[a - 1][b], totalMatrix[a - 1][b + 1]);
+					cout << totalMatrix[a][b] << " ";
+				}
+				else if (b == x - 1) {
+					totalMatrix[a][b] = eMatrix[a][b] + min(totalMatrix[a - 1][b], totalMatrix[a - 1][b - 1]);
+					cout << totalMatrix[a][b] << " ";
+				}
+				else {
+					totalMatrix[a][b] = eMatrix[a][b] + min(totalMatrix[a - 1][b], totalMatrix[a - 1][b - 1], totalMatrix[a - 1][b + 1]);
+					cout << totalMatrix[a][b] << " ";
+				}
+			}
+		}
+		cout << "\n";
+	}
+
 	int**  newImg= new int*[Ylen];
 	for (int j = 0; j < y; j++) {
 		newImg[j] = new int[Xlen];

@@ -155,7 +155,7 @@ void carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 					totalMatrix[b][a] = eMatrix[b][a] + min(totalMatrix[b][a - 1], totalMatrix[b + 1][a - 1]);
 					cout << totalMatrix[b][a] << " ";
 				}
-				else if (b == x - 1) {
+				else if (b == y - 1) {
 					totalMatrix[b][a] = eMatrix[b][a] + min(totalMatrix[b][a - 1], totalMatrix[b - 1][a - 1]);
 					cout << totalMatrix[b][a] << " ";
 				}

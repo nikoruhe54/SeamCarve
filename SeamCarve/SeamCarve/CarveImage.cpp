@@ -198,7 +198,7 @@ void carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	int z = 0;
 	for (int a = 0; a < x; a++) {
 		for (int b = 0; b < y; b++) {
-			if (eMatrix[b][a] != -1) {
+			if (totalMatrix[b][a] != -1) {
 				pixelMatrix[z][a] = pixelMatrix[b][a];
 				//cout << newImg[z][a] << " ";
 				z++;

@@ -113,7 +113,7 @@ int** makeEMatrix(int** pixelMatrix, int x, int y) {
 	return energy;
 }
 
-int** carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
+void carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	int Ylen = y - 1;
 	int Xlen = x;
 	int minIndex = 0, carve = 0;
@@ -167,27 +167,29 @@ int** carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 		}
 		cout << "\n";
 	}
-	for (int X = 0; X < x; X++) {
+
+
+	for (int X = x-1; X >= 0; X--) {
 		for (int Y = 0; Y < y; Y++) {
 			if (firstCol == true) {
 				if (totalMatrix[Y][X] < temp) {
-					temp = eMatrix[Y][X];
+					temp = totalMatrix[Y][X];
 					minIndex = Y;
 					carve = Y;
 				}
 			}
 			else {
 				if (Y <= carve + 1 && Y >= carve - 1) {
-					if (eMatrix[Y][X] < temp) {
-						temp = eMatrix[Y][X];
+					if (totalMatrix[Y][X] < temp) {
+						temp = totalMatrix[Y][X];
 						minIndex = Y;
 					}
 				}
 			}
 		}
 		firstCol = false;
-		temp = 65000;
-		eMatrix[minIndex][X] = -1;
+		temp = 9999999999;
+		totalMatrix[minIndex][X] = -1;
 		carve = minIndex;
 	}
 
@@ -197,7 +199,7 @@ int** carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	for (int a = 0; a < x; a++) {
 		for (int b = 0; b < y; b++) {
 			if (eMatrix[b][a] != -1) {
-				newImg[z][a] = pixelMatrix[b][a];
+				pixelMatrix[z][a] = pixelMatrix[b][a];
 				//cout << newImg[z][a] << " ";
 				z++;
 			}
@@ -205,7 +207,6 @@ int** carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 		z = 0;
 		//cout << endl;
 	}
-	return newImg;
 }
 
 void carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
@@ -327,26 +328,26 @@ int main(int argc, char *argv[]) {
 		verticalSeams--;
 		x--;
 	}
-/*
+
 	if (horizontalSeams > 0 && cutLong == false) {
-		verticalImgCarve = carveHorizontal(eMatrix, pixelMatrix, x, y);
+		carveHorizontal(eMatrix, pixelMatrix, x, y);
 		horizontalSeams--;
 		y--;
 	}
 	else if (horizontalSeams > 0 && cutLong == true) {
-		verticalImgCarve = makeEMatrix(verticalImgCarve, x, y);
-		verticalImgCarve = carveHorizontal(verticalImgCarve, pixelMatrix, x, y);
+		int** newEMatrix2 = makeEMatrix(pixelMatrix, x, y);
+		carveHorizontal(newEMatrix2, pixelMatrix, x, y);
 		horizontalSeams--;
 		y--;
 	}
 
 	while (horizontalSeams > 0) {
-		verticalImgCarve = makeEMatrix(verticalImgCarve, x, y);
-		verticalImgCarve = carveHorizontal(verticalImgCarve, pixelMatrix, x, y);
+		int** newEMatrix3 = makeEMatrix(pixelMatrix, x, y);
+		carveHorizontal(newEMatrix3, pixelMatrix, x, y);
 		horizontalSeams--;
 		y--;
 	}
-	*/
+	
 	cout << "Here is the final Pic" << endl;
 	string fileType = "_processed.pgm";
 	string newFileName = argv[1] + fileType;

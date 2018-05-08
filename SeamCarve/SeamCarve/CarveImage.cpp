@@ -116,16 +116,61 @@ int** makeEMatrix(int** pixelMatrix, int x, int y) {
 int** carveHorizontal(int** eMatrix, int** &pixelMatrix, int x, int y) {
 	int Ylen = y - 1;
 	int Xlen = x;
-	int minIndex = 0, carve = 0, temp = 65000;
+	int minIndex = 0, carve = 0;
+	long temp = 9999999999;
 	bool firstCol = true;
 	int** newImg = new int*[Ylen];
 	for (int j = 0; j < y; j++) {
 		newImg[j] = new int[Xlen];
 	}
+	int** totalMatrix = new int*[y];
+	for (int t = 0; t < y; t++) {
+		totalMatrix[t] = new int[x];
+	}
+
+	// build the total Matrix
+	cout << "here is the cumulative matrix" << endl;
+	for (int a = 0; a < x; a++) {
+		for (int b = 0; b < y; b++) {
+			if (a == 0) {
+				totalMatrix[b][a] = eMatrix[b][a];
+				cout << totalMatrix[b][a] << " ";
+			}
+			else if (a == x - 1) {
+				if (b == 0) {
+					totalMatrix[b][a] = eMatrix[b][a] + min(totalMatrix[b][a - 1], totalMatrix[b + 1][a - 1]);
+					cout << totalMatrix[b][a] << " ";
+				}
+				else if (b == y - 1) {
+					totalMatrix[b][a] = eMatrix[b][a] + min(totalMatrix[b][a - 1], totalMatrix[b - 1][a - 1]);
+					cout << totalMatrix[b][a] << " ";
+				}
+				else {
+					totalMatrix[b][a] = eMatrix[b][a] + min(min(totalMatrix[b][a - 1], totalMatrix[b - 1][a - 1]), totalMatrix[b + 1][a - 1]);
+					cout << totalMatrix[b][a] << " ";
+				}
+			}
+			else {
+				if (b == 0) {
+					totalMatrix[b][a] = eMatrix[b][a] + min(totalMatrix[b][a - 1], totalMatrix[b + 1][a - 1]);
+					cout << totalMatrix[b][a] << " ";
+				}
+				else if (b == x - 1) {
+					totalMatrix[b][a] = eMatrix[b][a] + min(totalMatrix[b][a - 1], totalMatrix[b - 1][a - 1]);
+					cout << totalMatrix[b][a] << " ";
+				}
+				else {
+					totalMatrix[b][a] = eMatrix[b][a] + min(min(totalMatrix[b][a - 1], totalMatrix[b - 1][a - 1]), totalMatrix[b + 1][a - 1]);
+					cout << totalMatrix[b][a] << " ";
+				}
+			}
+		}
+		cout << "\n";
+	}
 	for (int X = 0; X < x; X++) {
 		for (int Y = 0; Y < y; Y++) {
 			if (firstCol == true) {
-				if (eMatrix[Y][X] < temp) {
+				if (totalMatrix[Y][X] < temp) {
 					temp = eMatrix[Y][X];
 					minIndex = Y;
 					carve = Y;
@@ -219,7 +264,7 @@ void carveVertical(int** eMatrix, int** &pixelMatrix, int x, int y) {
 		newImg[j] = new int[Xlen];
 	}
 
-	for (int Y = 0; Y < y; Y++) {
+	for (int Y = y-1; Y >= 0; Y--) {
 		for (int X = 0; X < x; X++) {
 			if (firstRow == true) {
 				if (totalMatrix[Y][X] < temp) {

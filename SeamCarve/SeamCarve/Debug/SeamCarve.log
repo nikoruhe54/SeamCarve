@@ -1,5 +1,9 @@
 ﻿  CarveImage.cpp
-c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(32): warning C4018: '<': signed/unsigned mismatch
-c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(13): warning C4101: 'letter': unreferenced local variable
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(34): warning C4018: '<': signed/unsigned mismatch
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(14): warning C4101: 'letter': unreferenced local variable
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(170): warning C4305: 'initializing': truncation from '__int64' to 'long'
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(170): warning C4309: 'initializing': truncation of constant value
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(241): warning C4305: '=': truncation from '__int64' to 'long'
+c:\users\nikor_000\seamcarve\seamcarve\seamcarve\carveimage.cpp(241): warning C4309: '=': truncation of constant value
   SeamCarve.vcxproj -> C:\Users\nikor_000\SeamCarve\SeamCarve\Debug\SeamCarve.exe
   SeamCarve.vcxproj -> C:\Users\nikor_000\SeamCarve\SeamCarve\Debug\SeamCarve.pdb (Partial PDB)
